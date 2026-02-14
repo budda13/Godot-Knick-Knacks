@@ -8,11 +8,15 @@ extends Button
 
 var popup_scene: Control
 
+
 func _ready() -> void:
 	if not is_connected("pressed", _on_pressed):
 		var _err: int = pressed.connect(_on_pressed)
-
+		
 
 func _on_pressed() -> void:
-	self.popup_scene = packed_popup_scene.instantiate()
-	add_child(popup_scene)
+	if popup_scene == null:
+		self.popup_scene = packed_popup_scene.instantiate()
+		add_child(popup_scene)
+	else:
+		popup_scene.queue_free()
